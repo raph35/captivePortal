@@ -1,0 +1,22 @@
+Chaque utilisateur sera enregistrer dans
+un fichier(user et macuser) quand il se 
+connectera su le wifi(apres authentification).
+Le fichier user contient:
+- Nom
+- Mac
+- Temps(ou il s'est connecte)
+
+Le fichier macuser contient:
+- Nom
+- Mac
+- Temps(qui determine la validite de son acces a internet)
+
+Lorsqu'un client se connecte sur le point d'access
+Toute requete http(s) sera rediriger vers la page web
+qui lui demande ses informations
+
+Une fois authenfifier, on prends son mac et on enregistre
+dans le fichier user son nom, mac et le temps(actuel)
+et dans le fichier macuser son nom, mac et le temps de validite
+temps actuel + temps de validite
+on l'exclu dans la table du pare-feu
