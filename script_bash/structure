@@ -1,0 +1,15 @@
+This file will explain the sctructure of the project,
+the uses of each object, and the logical behind the 
+captive portal
+
+- Construction d'un nouveau chaine internet
+- Toutes les connexions entrant dans la table mange sera filtrer
+- Exclusion de toutes les clients qui sont deja connectee et 
+- Marquer les paquets avec set MARK -m 99 pour differencier les requettes http des autres.
+- Implementation de la DNAT sur les clients non_connecte pour rediriger toutes les requetes
+vers la page web
+- Mise en place d'un cron.tab
+
+To do:
+- setting cron tab
+- setting init.d config
