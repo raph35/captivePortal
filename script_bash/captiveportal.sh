@@ -53,7 +53,8 @@ start() {
 	$IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 443 -j DNAT --to-destination $ip_addrWeb
 
 	# authorise les requettes dns servers
-	$IPTABLES  -I FORWARD -p udp --dport 53 -j ACCEPT
+	$IPTABLES -I FORWARD -p udp --dport 53 -j ACCEPT
+	$IPTABLES -A INPUT -p udp --dport 53 -j ACCEPT
 
 	#Authorise la connection à l'internet
 	echo "1" >/proc/sys/net/ipv4/ip_forward
