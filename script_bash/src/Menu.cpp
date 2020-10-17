@@ -18,6 +18,30 @@ void Menu::show(){
     cin >> choice;
 }
 
+void Menu::process(){
+    switch (choice) {
+        case '1':
+            CaptivePortal::launch();
+            break;
+
+        case '2':
+        CaptivePortal::restart();
+            break;
+
+        case '3':
+        CaptivePortal::stop();
+            break;
+
+        case '4':
+        CaptivePortal::reboot();
+            break;
+        
+        default:
+            cout << "Choix invalide!!" << endl;
+            break;
+    }
+}
+
 char Menu::getChoice(){
     return choice;
 }

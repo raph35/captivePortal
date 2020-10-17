@@ -9,6 +9,11 @@ RETVAL=0
 SCRIPTNAME="${0##*/}"
 IPTABLES=/sbin/iptables
 
+# Test if the user is root or not
+if [ $USER != 'root' ]; then	
+	echo 'You must be root to launch the script'
+	exit 1
+fi
 # Function that display the usage of the script
 usage() {
 	echo "Usage: $SCRIPTNAME {start|stop|restart|reboot}\n"

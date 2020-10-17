@@ -12,23 +12,24 @@
 using namespace std;
 int main(int argc, char* argv[]){
     // Debut du programme
+    // Verify if the programme is launched by root
+    if(system("test $USER != root ") == 0){
+        std::cout << "Le programme doit etre execute en root" << std::endl;
+        return -1;
+    }
+    printSplashScreen();
 
     // Launching the main menu
     Menu menu = Menu();
     char choice = '1';
     while(1){
-        if(!(   menu.getChoice() == '1' || \
-                menu.getChoice() == '2' || \
-                menu.getChoice() == '3' || \
-                menu.getChoice() == '4' || \
-                menu.getChoice() == '5' )){
-            cout << "Choix invalide!!" << endl;
-        }
         menu.show();
         if(menu.getChoice() == '5')
             break;
+        menu.process();
     }
 
     // Fin du programme
+    printEndProgrammText();
     return 0;
 }

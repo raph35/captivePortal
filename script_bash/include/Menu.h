@@ -1,8 +1,11 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
+#include "CaptivePortal.h"
 
 using namespace std;
+
+class CaptivePortal;
 
 class Menu{
     public:
@@ -18,6 +21,7 @@ class Menu{
     // Getters and setters 
         char getChoice();
         void setChoice(char choice);
+        void process();
 
     private:
         char choice;
