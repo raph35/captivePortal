@@ -13,7 +13,7 @@ if [ -z mysql_user -a -z mysql_passworld ]; then
     echo "              [missing]"
 else
     export MYSQL_PWD=$mysql_password
-	$MYSQL -u $mysql_user $database_name
+	$MYSQL -u $mysql_user $database_name -B -N -e "SHOW TABLES" >/dev/null 2>&1
     if [ $? -eq 0 ]; then
         echo "           [OK]"
     else
