@@ -30,7 +30,7 @@ ap (){
     /bin/ip addr add $ap_ip_fw/24 dev $ap_if_fw
 
     # Setting the gateway of the accesspoint
-    route add default gw $ap_ip_fw
+    route add default gw $fw_ip_ap
     echo "[OK]"
 }
 
