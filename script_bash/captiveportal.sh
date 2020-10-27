@@ -8,6 +8,8 @@
 RETVAL=0
 SCRIPTNAME="${0##*/}"
 IPTABLES=/sbin/iptables
+CONF_PATH=/etc/captiveportal
+LIB_PATH=/usr/local/lib/captiveportal
 
 # Test if the user is root or not
 if [ $USER != 'root' ]; then	
@@ -27,18 +29,29 @@ fi
 
 
 # Source variables from configuration file.
-if [ ! -f conf/captiveportal.conf ]; then
+if [ ! -f ${CONF_PATH}/captiveportal.conf ]; then
 	echo -n "Missing configuration file.
-       	`pwd`/conf/captiveportal.conf not found"
+       	${CONF_PATH}/captiveportal.conf not found"
 	exit 1
 fi
-. ./conf/captiveportal.conf
+
+. ${CONF_PATH}/captiveportal.conf
+
+HTTP_DEST=$ip_addrWeb
+HTTPS_DEST=$ip_addrWeb
+if [ -n $http_port ]; then
+	HTTP_DEST=${HTTP_DEST}:${http_port}
+fi
+
+if [ -n $https_port ]; then
+	HTTPS_DEST=${HTTPS_DEST}:${https_port}
+fi
 
 # Sourcing functions that will be used in the script
-if [ ! -f function.sh ]; then
+if [ ! -f ${LIB_PATH}/function.sh ]; then
 	echo "File not found"
 fi
-. ./function.sh
+. ${LIB_PATH}/function.sh
 
 # Functions
 start() {
@@ -54,8 +67,8 @@ start() {
 	$IPTABLES -t mangle -A internet -j MARK --set-mark 99
 
 	# Redirection des requettes http des utilisateurs non autorisée vers la page de login
-	$IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 80 -j DNAT --to-destination $ip_addrWeb
-	$IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 443 -j DNAT --to-destination $ip_addrWeb
+	$IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 80 -j DNAT --to-destination $HTTP_DEST
+	$IPTABLES -t nat -A PREROUTING -m mark --mark 99 -p tcp --dport 443 -j DNAT --to-destination $HTTPS_DEST
 
 	# authorise les requettes dns servers
 	$IPTABLES -I FORWARD -p udp --dport 53 -j ACCEPT

@@ -4,7 +4,9 @@
 # by scripts for manipulating iptables chain and mysql datas
 
 # Sourcing the configuration of the database
-. ./conf/mysql.conf
+CONF_PATH=/etc/captiveportal
+
+. ${CONF_PATH}/mysql.conf
 
 MYSQL=/usr/bin/mysql
 IPTABLES=/sbin/iptables

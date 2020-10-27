@@ -20,3 +20,13 @@ dans le fichier user son nom, mac et le temps(actuel)
 et dans le fichier macuser son nom, mac et le temps de validite
 temps actuel + temps de validite
 on l'exclu dans la table du pare-feu
+
+Contenance des fichiers
+configuration:
+/etc/captiveportal
+
+executable
+/usr/local/bin/captiveportal
+
+libraries
+/usr/local/lib/captiveportal/

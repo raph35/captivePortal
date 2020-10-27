@@ -11,7 +11,7 @@ CFLAGS=-Wall
 LDFLAGS=
 
 ### Configuration of output file ###
-EXEC_NAME=captiveportal.exe
+EXEC_NAME=captiveportal
 EXEC_DIR=.
 EXEC=$(EXEC_DIR)/$(EXEC_NAME)
 SRC_DIR=src

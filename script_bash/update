@@ -1,0 +1,8 @@
+#!/bin/bash
+
+make
+
+cp -uv captiveportal /usr/local/bin
+cp -uv *.sh /usr/local/lib/captiveportal
+cp -uv conf/* /etc/captiveportal
+echo "Copy success      [OK]"

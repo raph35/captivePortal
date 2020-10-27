@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #define PROG_NAME "captiveportal.sh"
+#define PROG_PATH "/usr/local/lib/captiveportal"
 
 using namespace std;
 class CaptivePortal{
@@ -17,5 +18,6 @@ public:
 
 private:
     static bool is_started;
+    static string command;
 };
 #endif
