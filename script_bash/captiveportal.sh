@@ -37,13 +37,15 @@ fi
 
 . ${CONF_PATH}/captiveportal.conf
 
+# echo "Port_http:`[ -z ${http_port} ]`Port_https:${https_port}"
+
 HTTP_DEST=$ip_addrWeb
 HTTPS_DEST=$ip_addrWeb
-if [ -n $http_port ]; then
+if [ ! -z $http_port ]; then
 	HTTP_DEST=${HTTP_DEST}:${http_port}
 fi
 
-if [ -n $https_port ]; then
+if [ ! -z $https_port ]; then
 	HTTPS_DEST=${HTTPS_DEST}:${https_port}
 fi
 

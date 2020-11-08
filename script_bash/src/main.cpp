@@ -8,6 +8,7 @@
 #include <iostream>
 #include "../include/Menu.h"
 #include "../include/function.h"
+#include "../include/CaptivePortal.h"
 
 using namespace std;
 int main(int argc, char* argv[]){
@@ -18,18 +19,23 @@ int main(int argc, char* argv[]){
         return -1;
     }
     printSplashScreen();
+    CaptivePortal::backupRules();
 
     // Launching the main menu
     Menu menu = Menu();
     char choice = '1';
     while(1){
+        // system("clear");
         menu.show();
-        if(menu.getChoice() == '5')
+        if(menu.getChoice() == '5'){
+            CaptivePortal::stop();
             break;
+        }
         menu.process();
     }
 
     // Fin du programme
+    CaptivePortal::restoreRules();
     printEndProgrammText();
     return 0;
 }

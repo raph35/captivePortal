@@ -4,6 +4,7 @@
 #include <string>
 #define PROG_NAME "captiveportal.sh"
 #define PROG_PATH "/usr/local/lib/captiveportal"
+#define IPTABLES_FILE_BACKUP "iptable.bak"
 
 using namespace std;
 class CaptivePortal{
@@ -15,9 +16,12 @@ public:
     static void stop();
     static void restart();
     static void reboot();
+    static void backupRules();
+    static void restoreRules();
 
 private:
     static bool is_started;
     static string command;
+    static string iptables_bak;
 };
 #endif

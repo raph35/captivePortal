@@ -1,12 +1,26 @@
 #include "../include/CaptivePortal.h"
 bool CaptivePortal::is_started = false;
 string CaptivePortal::command = string(PROG_PATH) + "/" + string(PROG_NAME);
+string CaptivePortal::iptables_bak = string(PROG_PATH) + "/" + string(IPTABLES_FILE_BACKUP);
+
+void CaptivePortal::backupRules(){
+	// Save the previous rules of the iptables
+	system(string("iptables-save > " + CaptivePortal::iptables_bak).c_str());
+	cout << "Iptables backup" << endl;
+}
+
+void CaptivePortal::restoreRules(){
+	// Restore the previous rules of the iptables
+	system(string("iptables-restore " + CaptivePortal::iptables_bak).c_str());
+	cout << "Iptables restored" << endl;
+}
 
 CaptivePortal::CaptivePortal(){
+	
 }
 
 CaptivePortal::~CaptivePortal(){
-
+	
 }
 
 void CaptivePortal::launch(){
