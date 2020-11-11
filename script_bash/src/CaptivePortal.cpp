@@ -27,6 +27,7 @@ void CaptivePortal::launch(){
 	// This script will launch the captive portal
 	// and initializing iptables rules
 	if(!CaptivePortal::is_started){
+		// system(string(CaptivePortal::command + " flush").c_str());
 		system(string(CaptivePortal::command + " start").c_str());
 		is_started = true;
 	}

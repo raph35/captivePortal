@@ -8,8 +8,11 @@
 RETVAL=0
 SCRIPTNAME="${0##*/}"
 IPTABLES=/sbin/iptables
+IPTABLESSAVE=/sbin/iptables-save
+IPTABLESRESTORE=/sbin/iptables-restore
 CONF_PATH=/etc/captiveportal
 LIB_PATH=/usr/local/lib/captiveportal
+IPTABLES_PATH_BACKUP='itables.bak.tmp'
 
 # Test if the user is root or not
 if [ $USER != 'root' ]; then	
@@ -18,7 +21,7 @@ if [ $USER != 'root' ]; then
 fi
 # Function that display the usage of the script
 usage() {
-	echo "Usage: $SCRIPTNAME {start|stop|restart|reboot}\n"
+	echo "Usage: $SCRIPTNAME {start|stop|restart|reboot|flush}\n"
 }
 
 # Test if the number of argument is correct
@@ -57,7 +60,9 @@ fi
 
 # Functions
 start() {
-	echo "Starting captive portal..."	
+	echo "Starting captive portal..."
+	$IPTABLESSAVE > $IPTABLES_PATH_BACKUP
+	flush
 	$IPTABLES -N internet -t mangle
 	# echo "Chaine internet créer"
 
@@ -88,13 +93,20 @@ start() {
 	echo "Service captive portal launched		[OK]"
 }
 
-stop() {
-	echo "Stopping captive portal..."
+flush() {
+	echo "Flushing previous iptables rules		[OK]"
 	$IPTABLES -t mangle -F
 	$IPTABLES -t mangle -X
 	$IPTABLES -t nat -F
 	$IPTABLES -F
 	$IPTABLES -X
+}
+
+stop() {
+	echo "Stopping captive portal..."
+	flush
+	$IPTABLESRESTORE $IPTABLES_PATH_BACKUP
+	echo "Restoring rules"
 	echo "Stopping service captive portal		[OK]"
 }
 
@@ -126,6 +138,9 @@ case "$1" in
 		echo "Rebooting service..."
 		stop
 		start
+		;;
+	flush)
+		flush
 		;;
 	*)
 		usage
