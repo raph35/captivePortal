@@ -38,7 +38,7 @@ removeUser() {
 # Getting users connected and updating firewall and database
 updateConnected(){
 	echo "Flushing all users not connected		[OK]"
-	querySql 'SELECT pseudo, mac, ip FROM connected' | while read -r line
+	querySql 'SELECT pseudo, mac, ip FROM connected WHERE isConnected=1' | while read -r line
 	do
 		currentIp=`echo "$line" | cut -f3`
 		mac_registred=`echo "$line" | cut -f2`
@@ -65,4 +65,11 @@ updateConnected(){
 	done
 
 	echo "Finishing flushing users			[OK]"
+}
+
+
+###
+# param string list of all mac that need to be whitelisted
+addWhitelist(){
+	$IPATABLES -t mangle -I internet -m mac --mac-source $mac -j RETURN
 }

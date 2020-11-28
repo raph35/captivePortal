@@ -18,6 +18,7 @@ public:
     static void reboot();
     static void backupRules();
     static void restoreRules();
+    static void end();
 
 private:
     static bool is_started;

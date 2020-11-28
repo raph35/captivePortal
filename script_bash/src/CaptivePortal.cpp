@@ -23,6 +23,10 @@ CaptivePortal::~CaptivePortal(){
 	
 }
 
+void CaptivePortal::end(){
+	system(string(CaptivePortal::command + " exit").c_str());
+}
+
 void CaptivePortal::launch(){
 	// This script will launch the captive portal
 	// and initializing iptables rules

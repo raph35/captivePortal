@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
     }
 
     // Fin du programme
-    CaptivePortal::restoreRules();
+    CaptivePortal::end();    
     printEndProgrammText();
     return 0;
 }
