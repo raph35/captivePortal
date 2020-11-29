@@ -66,6 +66,9 @@ start() {
 	$IPTABLES -N internet -t mangle
 	# echo "Chaine internet créer"
 
+	# Default policy
+	$IPTABLES -P FORWARD DROP
+
 	#Envoi tous les traffics vers la chaine internet
 	$IPTABLES -t mangle -A PREROUTING -j internet
 
@@ -88,7 +91,7 @@ start() {
 	$IPTABLES -t nat -A POSTROUTING -o $eth_internet -j MASQUERADE
 
 	# Rejette tous les paquets des utilisateurs non authentifiés
-	$IPTABLES -t filter -A FORWARD -m mark --mark 99 -j DROP
+	$IPTABLES -t filter -I FORWARD -m mark --mark 99 -j DROP
 
 	echo "Service captive portal launched		[OK]"
 }

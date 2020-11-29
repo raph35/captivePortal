@@ -71,5 +71,6 @@ updateConnected(){
 ###
 # param string list of all mac that need to be whitelisted
 addWhitelist(){
-	$IPATABLES -t mangle -I internet -m mac --mac-source $mac -j RETURN
+	echo "removing $mac"
+#	$IPATABLES -t mangle -I internet -m mac --mac-source $mac -j RETURN
 }

@@ -6,6 +6,7 @@
 
 # Sourcing configurations files
 . ./mysql.conf;
+. ./captiveportal.conf
 
 #checking if the confugurations are valide
 echo -n "Utilisateur et mot de passe mysql..."
@@ -20,3 +21,12 @@ else
         echo "           [wrong data]"
     fi
 fi
+
+echo "Reading the whitelist mac source"
+setWhiteList(){
+	while IFS= read -r line
+	do
+		addWhiteList $line
+	done <<< $macWhiteList
+}
+setWhiteList
